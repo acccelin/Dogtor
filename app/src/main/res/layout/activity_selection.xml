@@ -4,33 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Selection">
+    tools:context=".Selection"
+    android:background="@drawable/gradient_1">
 
     <Button
         android:id="@+id/buttonAbout"
-        android:layout_width="203dp"
-        android:layout_height="103dp"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
         android:text="about dogtor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.345" />
+        app:layout_constraintVertical_bias="0.473" />
 
     <Button
         android:id="@+id/buttonVitals"
-        android:layout_width="195dp"
-        android:layout_height="105dp"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
         android:layout_marginEnd="56dp"
         android:layout_marginRight="56dp"
         android:text="Vitals"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.693"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
+        app:layout_constraintVertical_bias="0.476" />
 
     <TextView
         android:id="@+id/textView2"
@@ -50,14 +51,29 @@
 
     <Button
         android:id="@+id/buttonControls"
-        android:layout_width="193dp"
-        android:layout_height="103dp"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
         android:text="Controls"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.632" />
+        app:layout_constraintVertical_bias="0.726" />
+
+    <Button
+        android:id="@+id/buttontest"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginRight="56dp"
+        android:text="Voice Controls"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.718" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ public class Selection extends AppCompatActivity {
     private Button buttonAbout;
     private Button buttonCtrl;
     private Button buttonVitals;
+    private Button buttonTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,14 @@ public class Selection extends AppCompatActivity {
                 openVitals();
             }
         });
+
+        buttonTest = (Button) findViewById(R.id.buttontest);
+        buttonTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSpeech();
+            }
+        });
     }
 
     public void openAbout(){
@@ -57,4 +66,10 @@ public class Selection extends AppCompatActivity {
         Intent intent = new Intent(this,Vitals.class);
         startActivity(intent);
     }
+
+    public void openSpeech(){
+        Intent intent = new Intent(this,SpeechToText.class);
+        startActivity(intent);
+    }
+
 }

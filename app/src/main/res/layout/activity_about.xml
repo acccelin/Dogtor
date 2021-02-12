@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".About">
+    tools:context=".About"
+    android:background="@drawable/gradient_1">
 
     <TextView
         android:id="@+id/textView2"
@@ -22,6 +23,7 @@
         android:layout_marginEnd="117dp"
         android:layout_marginRight="117dp"
         android:text="  About\nDOGTOR"
+        android:textColor="@android:color/black"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +39,6 @@
         android:layout_height="337dp"
         android:layout_above="@+id/buttonUse"
         android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
@@ -45,6 +46,7 @@
         \n\nIt can read heartrate, body temperature and blood pressure.
         \n\nDogtor can go from room to room autonomously by following a line that will be spread around the house to specific desired room."
         android:textSize="24sp"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.761"
