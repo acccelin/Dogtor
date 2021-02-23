@@ -13,6 +13,7 @@ public class Selection extends AppCompatActivity {
     private Button buttonCtrl;
     private Button buttonVitals;
     private Button buttonTest;
+    private Button buttonBlueTooth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,14 @@ public class Selection extends AppCompatActivity {
                 openSpeech();
             }
         });
+
+        buttonTest = (Button) findViewById(R.id.buttonBlueTooth);
+        buttonTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openBlueTooth();
+            }
+        });
     }
 
     public void openAbout(){
@@ -69,6 +78,11 @@ public class Selection extends AppCompatActivity {
 
     public void openSpeech(){
         Intent intent = new Intent(this,SpeechToText.class);
+        startActivity(intent);
+    }
+
+    public void openBlueTooth(){
+        Intent intent = new Intent(this,BlueTooth.class);
         startActivity(intent);
     }
 

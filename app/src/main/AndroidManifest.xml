@@ -9,10 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SpeechToText"
+        <activity android:name=".BlueTooth"
             android:parentActivityName=".Selection"></activity>
-        <activity android:name=".Test"
-            android:parentActivityName=".Vitals"/>
+        <activity
+            android:name=".BT"
+            android:parentActivityName=".Vitals" />
+        <activity
+            android:name=".BP"
+            android:parentActivityName=".Vitals" />
+        <activity
+            android:name=".SpeechToText"
+            android:parentActivityName=".Selection" />
+        <activity
+            android:name=".HeartRate"
+            android:parentActivityName=".Vitals" />
         <activity
             android:name=".Vitals"
             android:parentActivityName=".Selection" />

@@ -10,16 +10,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class PersonListAdapter extends ArrayAdapter<TestPerson> {
+public class BPListAdapter extends ArrayAdapter<BPData> {
+
     private static final String TAG = "PersonListAdapter";
 
     private Context mContext;
     int mResource;
 
 
-    public PersonListAdapter(Context context, int resource, ArrayList<TestPerson> objects) {
+    public BPListAdapter(Context context, int resource, ArrayList<BPData> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
@@ -28,25 +28,21 @@ public class PersonListAdapter extends ArrayAdapter<TestPerson> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        String name = getItem(position).getName();
-        String birthday= getItem(position).getBirthday();
-        String sex = getItem(position).getSex();
+        String date = getItem(position).getDate();
+        String rate= getItem(position).getRate();
 
-        TestPerson testPerson = new TestPerson(name,birthday,sex);
+        BPData bpData = new BPData(date,rate);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);
 
-        TextView tvName = (TextView) convertView.findViewById(R.id.test1);
-        TextView tvBirthday = (TextView) convertView.findViewById(R.id.test2);
-        TextView tvSex = (TextView) convertView.findViewById(R.id.test3);
+        TextView tvDate = (TextView) convertView.findViewById(R.id.test1);
+        TextView tvRate = (TextView) convertView.findViewById(R.id.test2);
 
-        tvName.setText(name);
-        tvBirthday.setText(birthday);
-        tvSex.setText(sex);
+        tvDate.setText(date);
+        tvRate.setText(rate);
 
         return convertView;
 
     }
-
 }
