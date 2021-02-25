@@ -82,7 +82,7 @@ public class Selection extends AppCompatActivity {
     }
 
     public void openBlueTooth(){
-        Intent intent = new Intent(this,BlueTooth.class);
+        Intent intent = new Intent(this,Bluetooth.class);
         startActivity(intent);
     }
 
