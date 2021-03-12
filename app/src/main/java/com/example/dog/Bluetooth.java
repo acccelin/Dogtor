@@ -41,7 +41,7 @@ public class Bluetooth extends AppCompatActivity {
     private OutputStream outputStream;
 
 
-    String address = "00:18:E4:35:35:88";
+    String address = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,12 +89,20 @@ public class Bluetooth extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String info = ((TextView) view).getText().toString();
-            String address = info.substring(info.length() - 17);
-            if (address != null && myBluetooth.isEnabled()) {
-                if (btSocket == null || !btSocket.isConnected()) {
-                    new ConnectBT().execute();
-                    BluetoothStatus.setBTconnection(true);
-                    sendingDatatest();
+            address = info.substring(info.length() - 17);
+            if (!isBtConnected) {
+                if (address != null && myBluetooth.isEnabled()) {
+                    if (btSocket == null || !btSocket.isConnected()) {
+                        new ConnectBT().execute();
+                        BluetoothStatus.setBTconnection(true);
+                        sendingDatatest();
+                    }
+                }
+            } else {
+                try {
+                    btSocket.getOutputStream().write(new String("1").getBytes());
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             //Intent i = getIntent();
