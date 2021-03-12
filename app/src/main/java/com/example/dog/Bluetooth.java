@@ -2,9 +2,13 @@ package com.example.dog;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,8 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
+
 public class Bluetooth extends AppCompatActivity {
 
     Button btnPaired;
@@ -24,20 +33,29 @@ public class Bluetooth extends AppCompatActivity {
     private BluetoothAdapter myBluetooth = null;
     private Set<BluetoothDevice> pairedDevices;
     public static String EXTRA_ADDRESS = "device_address";
+    private ProgressDialog progress;
+    BluetoothSocket btSocket = BluetoothStatus.getBtSocket();
+    private boolean isBtConnected = false;
+    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private InputStream inputStream;
+    private OutputStream outputStream;
+
+
+    String address = "00:18:E4:35:35:88";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blue_tooth);
 
-        btnPaired =  findViewById(R.id.button);
+        btnPaired = findViewById(R.id.button);
         devicelist = findViewById(R.id.listView);
 
         myBluetooth = BluetoothAdapter.getDefaultAdapter();
-        if ( myBluetooth==null ) {
+        if (myBluetooth == null) {
             Toast.makeText(getApplicationContext(), "Bluetooth device not available", Toast.LENGTH_LONG).show();
             finish();
-        } else if ( !myBluetooth.isEnabled() ) {
+        } else if (!myBluetooth.isEnabled()) {
             Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(turnBTon, 1);
         }
@@ -50,12 +68,12 @@ public class Bluetooth extends AppCompatActivity {
         });
     }
 
-    private void pairedDevicesList () {
+    private void pairedDevicesList() {
         pairedDevices = myBluetooth.getBondedDevices();
         ArrayList list = new ArrayList();
 
-        if ( pairedDevices.size() > 0 ) {
-            for ( BluetoothDevice bt : pairedDevices ) {
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice bt : pairedDevices) {
                 list.add(bt.getName().toString() + "\n" + bt.getAddress().toString());
             }
         } else {
@@ -71,10 +89,92 @@ public class Bluetooth extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String info = ((TextView) view).getText().toString();
-            String address = info.substring(info.length()-17);
-
-            //Intent i = new Intent(Bluetooth.this, gameActivity.class);
+            String address = info.substring(info.length() - 17);
+            if (address != null && myBluetooth.isEnabled()) {
+                if (btSocket == null || !btSocket.isConnected()) {
+                    new ConnectBT().execute();
+                    BluetoothStatus.setBTconnection(true);
+                    sendingDatatest();
+                }
+            }
+            //Intent i = getIntent();
             //i.putExtra(EXTRA_ADDRESS, address);
             //startActivity(i);
         }
-    };}
+    };
+
+    private class ConnectBT extends AsyncTask<Void, Void, Void> {
+        private boolean ConnectSuccess = true;
+
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(Bluetooth.this, "Connecting...", "Please Wait!!!");
+        }
+
+        @Override
+        protected Void doInBackground(Void... devices) {
+            try {
+                if (btSocket == null || !isBtConnected) {
+                    myBluetooth = BluetoothAdapter.getDefaultAdapter();
+                    BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);
+                    btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);
+                    BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+                    btSocket.connect();
+                }
+            } catch (IOException e) {
+                ConnectSuccess = false;
+            }
+            if (ConnectSuccess) {
+
+                BluetoothStatus.setBtSocket(btSocket);
+                try {
+                    inputStream = btSocket.getInputStream();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            if (!ConnectSuccess) {
+                msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
+                finish();
+            } else {
+                msg("Connected");
+                isBtConnected = true;
+            }
+
+            progress.dismiss();
+        }
+
+        private void msg(String s) {
+            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    void sendingDatatest() {
+        Thread thread = new Thread(new Runnable() {
+
+            public void run() {
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        btSocket.getOutputStream().write(new String("1").getBytes());
+                        Thread.sleep(5000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+
+        thread.start();
+    }
+}
