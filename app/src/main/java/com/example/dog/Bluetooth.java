@@ -34,7 +34,7 @@ public class Bluetooth extends AppCompatActivity {
     private Set<BluetoothDevice> pairedDevices;
     public static String EXTRA_ADDRESS = "device_address";
     private ProgressDialog progress;
-    BluetoothSocket btSocket = BluetoothStatus.getBtSocket();
+    BluetoothSocket btSocket;
     private boolean isBtConnected = false;
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private InputStream inputStream;
@@ -90,12 +90,30 @@ public class Bluetooth extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String info = ((TextView) view).getText().toString();
             address = info.substring(info.length() - 17);
-            if (!isBtConnected) {
+            try {
+                BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);
+                btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);
+                btSocket =(BluetoothSocket) dispositivo.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(dispositivo,1);
+
+                if (btSocket == null) {
+                    Toast.makeText(getApplicationContext(), "Socket Problem.", Toast.LENGTH_LONG).show();
+                } else if (!btSocket.isConnected()) {
+                    btSocket.connect();
+                    //Toast.makeText(getApplicationContext(), "Socket Connection Problem.", Toast.LENGTH_LONG).show();
+                }
+                if (btSocket != null && btSocket.isConnected()) {
+                    btSocket.getOutputStream().write(new String("1").getBytes());
+                    Toast.makeText(getApplicationContext(), "Sent 1.", Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+           /* if (!isBtConnected) {
                 if (address != null && myBluetooth.isEnabled()) {
                     if (btSocket == null || !btSocket.isConnected()) {
                         new ConnectBT().execute();
                         BluetoothStatus.setBTconnection(true);
-                        sendingDatatest();
+                        //sendingDatatest();
                     }
                 }
             } else {
@@ -104,7 +122,7 @@ public class Bluetooth extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
             //Intent i = getIntent();
             //i.putExtra(EXTRA_ADDRESS, address);
             //startActivity(i);
