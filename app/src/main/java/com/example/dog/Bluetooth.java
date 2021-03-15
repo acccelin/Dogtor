@@ -10,6 +10,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
+import static java.lang.Thread.sleep;
+
 public class Bluetooth extends AppCompatActivity {
 
     Button btnPaired;
@@ -39,6 +42,9 @@ public class Bluetooth extends AppCompatActivity {
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private InputStream inputStream;
     private OutputStream outputStream;
+    byte buffer[];
+    boolean stopThread;
+    boolean isDataSending=false;
 
 
     String address = null;
@@ -104,7 +110,11 @@ public class Bluetooth extends AppCompatActivity {
                 if (btSocket != null && btSocket.isConnected()) {
                     btSocket.getOutputStream().write(new String("1").getBytes());
                     Toast.makeText(getApplicationContext(), "Sent 1.", Toast.LENGTH_LONG).show();
+                    if(!isDataSending){
+                    beginListenForData();}
                 }
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -179,10 +189,10 @@ public class Bluetooth extends AppCompatActivity {
             progress.dismiss();
         }
 
-        private void msg(String s) {
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-        }
 
+    }
+    private void msg(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }
 
     void sendingDatatest() {
@@ -192,7 +202,7 @@ public class Bluetooth extends AppCompatActivity {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
                         btSocket.getOutputStream().write(new String("1").getBytes());
-                        Thread.sleep(5000);
+                        sleep(5000);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -203,4 +213,48 @@ public class Bluetooth extends AppCompatActivity {
 
         thread.start();
     }
-}
+    void beginListenForData()
+    {
+        isDataSending=true;
+        final Handler handler = new Handler();
+        stopThread = false;
+        buffer = new byte[1024];
+        Thread thread  = new Thread(new Runnable()
+        {
+            public void run()
+            {
+                while(!Thread.currentThread().isInterrupted() && !stopThread)
+                {
+                    try
+                    {
+                        int byteCount = btSocket.getInputStream().available();
+                        if(byteCount > 0)
+                        {
+                            byte[] rawBytes = new byte[byteCount];
+                            btSocket.getInputStream().read(rawBytes);
+                            final String string=new String(rawBytes,"UTF-8");
+                            handler.post(new Runnable() {
+                                public void run()
+                                {
+                                    try {
+                                        sleep(5000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    msg(string);
+
+                                }
+                            });
+
+                        }
+                    }
+                    catch (IOException ex)
+                    {
+                        stopThread = true;
+                    }
+                }
+            }
+        });
+
+        thread.start();
+    }}
