@@ -96,8 +96,7 @@ public class Bluetooth extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String info = ((TextView) view).getText().toString();
             address = info.substring(info.length() - 17);
-            gotoTesting(address);
-            /*try {
+            try {
                 BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);
                 btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);
                 btSocket =(BluetoothSocket) dispositivo.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(dispositivo,1);
@@ -109,9 +108,6 @@ public class Bluetooth extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), "Socket Connection Problem.", Toast.LENGTH_LONG).show();
                 }
                 if (btSocket != null && btSocket.isConnected()) {
-
-
-
                     btSocket.getOutputStream().write(new String("1").getBytes());
                     Toast.makeText(getApplicationContext(), "Sent 1.", Toast.LENGTH_LONG).show();
                     if(!isDataSending){
@@ -121,7 +117,7 @@ public class Bluetooth extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
-            }*/
+            }
            /* if (!isBtConnected) {
                 if (address != null && myBluetooth.isEnabled()) {
                     if (btSocket == null || !btSocket.isConnected()) {
@@ -142,13 +138,6 @@ public class Bluetooth extends AppCompatActivity {
             //startActivity(i);
         }
     };
-
-    protected void gotoTesting(String macAddress) {
-        Intent intent = new Intent(this, BluetoothTesting.class);
-        intent.putExtra(EXTRA_ADDRESS, macAddress);
-        startActivity(intent);
-    }
-
 
     private class ConnectBT extends AsyncTask<Void, Void, Void> {
         private boolean ConnectSuccess = true;
