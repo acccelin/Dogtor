@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        button = (ImageButton) findViewById(R.id.imageButton2);
+        button = (ImageButton) findViewById(R.id.imageButtonStart);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

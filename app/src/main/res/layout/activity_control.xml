@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Control"
-    android:background="@drawable/gradient_1">
+    android:background="@android:color/white"
+    tools:context=".Control">
 
     <Button
         android:id="@+id/button"
@@ -24,10 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="75dp"
-        android:text="forward"
-        android:textStyle="bold"
         android:background="@android:color/black"
+        android:text="forward"
         android:textColor="@android:color/white"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -39,8 +39,8 @@
         android:layout_marginStart="1dp"
         android:layout_marginLeft="1dp"
         android:background="@android:color/black"
-        android:textColor="@android:color/white"
         android:text="left"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button"
@@ -55,8 +55,8 @@
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:background="@android:color/black"
-        android:textColor="@android:color/white"
         android:text="right"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,8 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
         android:background="@android:color/black"
-        android:textColor="@android:color/white"
         android:text="reverse"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,13 +80,15 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Controls"
-        android:textSize="36sp"
+        android:text="Navigation Control"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.728" />
 
     <Switch
         android:id="@+id/switch_auto"
@@ -100,4 +102,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button7" />
+
+    <ImageButton
+        android:id="@+id/imageButtonPaw"
+        android:layout_width="74dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.063"
+        app:srcCompat="@drawable/_8paweast" />
 </androidx.constraintlayout.widget.ConstraintLayout>
