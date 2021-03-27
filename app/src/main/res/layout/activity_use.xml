@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Use"
-    android:background="@drawable/gradient_1">
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/textView2"
@@ -23,6 +23,8 @@
         android:text="  About\nDOGTOR"
         android:textSize="40sp"
         android:textStyle="bold"
+        android:background="@android:color/white"
+        android:textColor="#4a6a7a"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -46,6 +48,8 @@
         android:text="How to use?\n"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:background="@android:color/white"
+        android:textColor="#4a6a7a"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -64,6 +68,8 @@
         \nFor detailed instructions on vital readings and controls, go to their respective sections.
         \n\nThank you for choosing Dogtor."
         android:textSize="18sp"
+        android:background="@android:color/white"
+        android:textColor="#4a6a7a"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

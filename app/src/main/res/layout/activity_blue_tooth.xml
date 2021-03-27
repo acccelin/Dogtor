@@ -16,6 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
             android:orientation="horizontal">
 
             <TextView
@@ -23,8 +24,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/white"
+                android:textColor="#4a6a7a"
                 android:text="Select A Pairing Device"
-                android:textColor="#0033FF"
                 android:textSize="16dp"
                 tools:layout_editor_absoluteX="168dp"
                 tools:layout_editor_absoluteY="134dp" />
@@ -35,8 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@android:color/holo_blue_light"
+                android:background="@android:color/white"
                 android:text="Pair"
+                android:textColor="#4a6a7a"
                 tools:layout_editor_absoluteX="190dp"
                 tools:layout_editor_absoluteY="183dp" />
         </LinearLayout>
@@ -44,10 +47,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             android:orientation="horizontal">
 
             <ListView
                 android:id="@+id/listView"
+                android:textColor="#4a6a7a"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="150dp"

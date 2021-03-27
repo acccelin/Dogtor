@@ -71,7 +71,7 @@
 
 
     <Button
-        android:id="@+id/buttontest"
+        android:id="@+id/buttonVoice"
         android:visibility="invisible"
         android:layout_width="48dp"
         android:layout_height="30dp"
