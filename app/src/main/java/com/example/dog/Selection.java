@@ -14,7 +14,7 @@ public class Selection extends AppCompatActivity {
     private ImageButton buttonCtrl;
     private ImageButton buttonVitals;
     private ImageButton buttonTest;
-    private Button buttonBlueTooth;
+    private ImageButton buttonBlueTooth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +54,8 @@ public class Selection extends AppCompatActivity {
             }
         });
 
-        buttonBlueTooth = (Button) findViewById(R.id.buttonBlueTooth);
-        buttonTest.setOnClickListener(new View.OnClickListener() {
+        buttonBlueTooth = (ImageButton) findViewById(R.id.imageButtonSetting);
+        buttonBlueTooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openBlueTooth();

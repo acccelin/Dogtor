@@ -9,20 +9,6 @@
 
 
     <Button
-        android:id="@+id/buttonAbout"
-        android:visibility="invisible"
-        android:layout_width="45dp"
-        android:layout_height="27dp"
-        android:text="about"
-        android:textSize="8sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.475" />
-
-    <Button
         android:id="@+id/buttonVitals"
         android:visibility="invisible"
         android:layout_width="57dp"
@@ -88,17 +74,40 @@
         app:layout_constraintVertical_bias="0.864" />
 
     <Button
-        android:id="@+id/buttonBlueTooth"
+        android:id="@+id/buttonAbout"
         android:visibility="invisible"
-        android:layout_width="53dp"
-        android:layout_height="33dp"
-        android:layout_marginBottom="16dp"
-        android:text="BT"
+        android:layout_width="45dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="244dp"
+        android:background="@android:color/transparent"
+        android:text="about"
+        android:textColor="#4a6a7a"
         android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonAbout"
+        app:layout_constraintVertical_bias="0.739" />
+
+    <Button
+        android:id="@+id/buttonBlueTooth"
+        android:visibility="invisible"
+        android:layout_width="52dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="236dp"
+        android:background="@android:color/transparent"
+        android:text="Setting"
+        android:textColor="#4a6a7a"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButtonAbout"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/imageButtonHeart"
@@ -180,7 +189,7 @@
         app:srcCompat="@drawable/_5voice" />
 
     <ImageButton
-        android:id="@+id/imageButtonAbout"
+        android:id="@+id/imageButtonLogo"
         android:layout_width="106dp"
         android:layout_height="119dp"
         android:layout_alignParentTop="true"
@@ -193,5 +202,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.474"
         app:srcCompat="@drawable/_1dog" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSetting"
+        android:layout_width="45dp"
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.59"
+        app:srcCompat="@drawable/_9setting" />
+
+    <ImageButton
+        android:id="@+id/imageButtonAbout"
+        android:layout_width="44dp"
+        android:layout_height="41dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginLeft="144dp"
+        android:layout_marginBottom="224dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/_1about" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
