@@ -25,9 +25,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/white"
-                android:textColor="#4a6a7a"
                 android:text="Select A Pairing Device"
+                android:textColor="#4a6a7a"
                 android:textSize="16dp"
+                android:textStyle="bold"
                 tools:layout_editor_absoluteX="168dp"
                 tools:layout_editor_absoluteY="134dp" />
 
