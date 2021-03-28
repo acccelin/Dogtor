@@ -6,20 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class Vitals extends AppCompatActivity {
 
-    private Button buttonHR;
+    private ImageButton imageButtonHR;
     private Button buttonBP;
-    private Button buttonBT;
+    private ImageButton imageButtonBT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vitals);
 
-        buttonHR = (Button) findViewById(R.id.buttonHR);
-        buttonHR.setOnClickListener(new View.OnClickListener() {
+        imageButtonHR = (ImageButton) findViewById(R.id.imageButtonVitalHeart);
+        imageButtonHR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openHR();
@@ -34,8 +35,8 @@ public class Vitals extends AppCompatActivity {
             }
         });
 
-        buttonBT = (Button) findViewById(R.id.buttonBT);
-        buttonBT.setOnClickListener(new View.OnClickListener() {
+        imageButtonBT = (ImageButton) findViewById(R.id.imageButtonVitalTemp);
+        imageButtonBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openBT();

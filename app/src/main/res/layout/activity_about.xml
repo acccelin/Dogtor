@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".About"
-    android:background="@drawable/gradient_1">
+    android:background="@android:color/white"
+    tools:context=".About">
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="166dp"
+        android:layout_height="42dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -22,21 +22,21 @@
         android:layout_marginTop="31dp"
         android:layout_marginEnd="117dp"
         android:layout_marginRight="117dp"
-        android:text="  About\nDOGTOR"
-        android:textColor="@android:color/black"
-        android:textSize="40sp"
+        android:text="About DOGTOR"
+        android:textColor="#4a6a7a"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.144" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="390dp"
-        android:layout_height="337dp"
+        android:layout_width="341dp"
+        android:layout_height="181dp"
         android:layout_above="@+id/buttonUse"
         android:layout_below="@+id/textView2"
         android:layout_alignParentEnd="true"
@@ -45,14 +45,14 @@
         android:text="Dogtor is a personal home robot doctor that can read vitals signs and help with item delivery.
         \n\nIt can read heartrate, body temperature and blood pressure.
         \n\nDogtor can go from room to room autonomously by following a line that will be spread around the house to specific desired room."
-        android:textSize="24sp"
-        android:textColor="@android:color/black"
+        android:textColor="#4a6a7a"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.621" />
+        app:layout_constraintVertical_bias="0.46" />
 
     <Button
         android:id="@+id/buttonUse"
@@ -66,6 +66,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="104dp"
+        android:layout_height="131dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.093"
+        app:srcCompat="@drawable/_2icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
