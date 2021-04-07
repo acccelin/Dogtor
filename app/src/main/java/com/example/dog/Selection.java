@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageSwitcher;
 
 public class Selection extends AppCompatActivity {
 
@@ -15,6 +16,7 @@ public class Selection extends AppCompatActivity {
     private ImageButton buttonVitals;
     private ImageButton buttonTest;
     private ImageButton buttonBlueTooth;
+    private ImageButton buttonTemp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
