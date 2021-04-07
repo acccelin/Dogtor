@@ -21,7 +21,7 @@ import java.util.UUID;
 
 public class Control extends AppCompatActivity {
 
-    private Switch Switch;
+    private Button Switch;
     private Button buttonFore, buttonBack, buttonRight, buttonLeft, buttonStop;
 
     BluetoothAdapter myBluetooth = BluetoothAdapter.getDefaultAdapter();
@@ -33,7 +33,7 @@ public class Control extends AppCompatActivity {
     private OutputStream outputStream;
     private InputStream inputStream;
     private boolean bluetoothOn = false;
-    private String macAddress= "98:D3:31:F9:58:E7";
+    private String macAddress = "98:D3:31:F9:58:E7";
 
 
     @Override
@@ -109,28 +109,16 @@ public class Control extends AppCompatActivity {
             }
         });
 
-        //save switch state
-        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
-        Switch.setChecked(sharedPreferences.getBoolean("value", true));
-
         Switch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Switch.isChecked()) {
-                    //When switch is checked
-                    SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
-                    editor.putBoolean("value", true);
-                    editor.apply();
-                    Switch.setChecked(true);
-                } else {
-                    //When switch unchecked
-                    SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
-                    editor.putBoolean("value", false);
-                    editor.apply();
-                    Switch.setChecked(false);
+                if (bluetoothOn) {
+                    msgSending("p");
+                    Toast.makeText(getApplicationContext(), " Automation", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
 
     }
 
@@ -156,10 +144,15 @@ public class Control extends AppCompatActivity {
     public boolean BTconnect() {
         boolean connected = true;
         try {
-            socket = device.createRfcommSocketToServiceRecord(PORT_UUID);
-            socket = (BluetoothSocket) device.getClass().getMethod("createRfcommSocket", new Class[]{int.class}).invoke(device, 1);
+            socket = BluetoothStatus.getBtSocket();
+            if (socket == null) {
+                socket = device.createRfcommSocketToServiceRecord(PORT_UUID);
+                socket = (BluetoothSocket) device.getClass().getMethod("createRfcommSocket", new Class[]{int.class}).invoke(device, 1);
+            }
+
             if (!socket.isConnected()) {
                 socket.connect();
+                BluetoothStatus.setBtSocket(socket);
             }
         } catch (IOException | NoSuchMethodException e) {
             e.printStackTrace();

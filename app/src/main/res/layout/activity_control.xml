@@ -90,11 +90,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.728" />
 
-    <Switch
+    <Button
         android:id="@+id/switch_auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Automation     "
+        android:text="Automation"
         android:textColor="@color/colorPrimary"
         android:textSize="26dp"
         android:textStyle="bold"

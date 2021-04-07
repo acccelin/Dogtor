@@ -116,10 +116,15 @@ public class BluetoothTesting extends AppCompatActivity {
     public boolean BTconnect() {
         boolean connected = true;
         try {
-            socket = device.createRfcommSocketToServiceRecord(PORT_UUID);
-            socket = (BluetoothSocket) device.getClass().getMethod("createRfcommSocket", new Class[]{int.class}).invoke(device, 1);
+            socket = BluetoothStatus.getBtSocket();
+            if (socket == null) {
+                socket = device.createRfcommSocketToServiceRecord(PORT_UUID);
+                socket = (BluetoothSocket) device.getClass().getMethod("createRfcommSocket", new Class[]{int.class}).invoke(device, 1);
+            }
+
             if (!socket.isConnected()) {
                 socket.connect();
+                BluetoothStatus.setBtSocket(socket);
             }
         } catch (IOException | NoSuchMethodException e) {
             e.printStackTrace();
@@ -157,9 +162,13 @@ public class BluetoothTesting extends AppCompatActivity {
                 deviceConnected = true;
                 beginListenForData();
                 textView.append("\nConnection Opened!\n");
-            }else{ Toast.makeText(getApplicationContext(), " error2", Toast.LENGTH_SHORT).show();}
+            } else {
+                Toast.makeText(getApplicationContext(), " error2", Toast.LENGTH_SHORT).show();
+            }
 
-        }else{ Toast.makeText(getApplicationContext(), " error1", Toast.LENGTH_SHORT).show();}
+        } else {
+            Toast.makeText(getApplicationContext(), " error1", Toast.LENGTH_SHORT).show();
+        }
     }
 
     void beginListenForData() {
@@ -177,7 +186,7 @@ public class BluetoothTesting extends AppCompatActivity {
                             final String string = new String(rawBytes, "UTF-8");
                             handler.post(new Runnable() {
                                 public void run() {
-                                    textView.append(string+"\n");
+                                    textView.append(string + "\n");
                                 }
                             });
 
