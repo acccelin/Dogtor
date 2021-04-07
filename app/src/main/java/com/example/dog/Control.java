@@ -33,6 +33,7 @@ public class Control extends AppCompatActivity {
     private OutputStream outputStream;
     private InputStream inputStream;
     private boolean bluetoothOn = false;
+    private String macAddress= "98:D3:31:F9:58:E7";
 
 
     @Override
@@ -148,9 +149,7 @@ public class Control extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Intent newint = getIntent();
-        String address = newint.getStringExtra(Bluetooth.EXTRA_ADDRESS);
-        device = bluetoothAdapter.getRemoteDevice(address);
+        device = bluetoothAdapter.getRemoteDevice(macAddress);
         return found;
     }
 
