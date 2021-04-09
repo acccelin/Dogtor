@@ -2,12 +2,15 @@ package com.example.dog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -25,13 +28,14 @@ public class Control extends AppCompatActivity {
     private Button buttonFore, buttonBack, buttonRight, buttonLeft, buttonStop;
 
     BluetoothAdapter myBluetooth = BluetoothAdapter.getDefaultAdapter();
-    ;
     BluetoothSocket btSocket = BluetoothStatus.getBtSocket();
     private final UUID PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//Serial Port Service ID
     private BluetoothDevice device;
     private BluetoothSocket socket;
     private OutputStream outputStream;
+    private ProgressDialog progress;
     private InputStream inputStream;
+    private boolean isBtConnected = false;
     private boolean bluetoothOn = false;
     private String macAddress = "98:D3:31:F9:58:E7";
 
@@ -49,17 +53,36 @@ public class Control extends AppCompatActivity {
         buttonLeft = findViewById(R.id.buttonLeft);
         buttonStop = findViewById(R.id.button);
 
+        /*if (myBluetooth == null) {
 
-        if (BTinit()) {
-            if (BTconnect()) {
-                Toast.makeText(getApplicationContext(), " Connection Opened!", Toast.LENGTH_SHORT).show();
-                bluetoothOn = true;
-            } else {
-                Toast.makeText(getApplicationContext(), " error2", Toast.LENGTH_SHORT).show();
+        } else if (!myBluetooth.isEnabled()) {
+            Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(turnBTon, 1);
+        }
+        if (myBluetooth.isEnabled()) {
+            if (btSocket == null || !btSocket.isConnected()) {
+                new ConnectBT().execute();
             }
 
+        }*/
+
+
+        socket = BluetoothStatus.getBtSocket();
+        if (socket != null && socket.isConnected()) {
+            Toast.makeText(getApplicationContext(), " Connection Opened!", Toast.LENGTH_SHORT).show();
+            bluetoothOn = true;
         } else {
-            Toast.makeText(getApplicationContext(), " error1", Toast.LENGTH_SHORT).show();
+            if (BTinit()) {
+                if (BTconnect()) {
+                    Toast.makeText(getApplicationContext(), " Connection Opened!", Toast.LENGTH_SHORT).show();
+                    bluetoothOn = true;
+                } else {
+                    Toast.makeText(getApplicationContext(), "Bluetooth connection lost", Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Bluetooth device failed", Toast.LENGTH_SHORT).show();
+            }
         }
 
         buttonFore.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +91,8 @@ public class Control extends AppCompatActivity {
                 if (bluetoothOn) {
                     msgSending("s");
                     Toast.makeText(getApplicationContext(), " Forward", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), " No Connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -78,6 +103,8 @@ public class Control extends AppCompatActivity {
                 if (bluetoothOn) {
                     msgSending("b");
                     Toast.makeText(getApplicationContext(), " backward", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), " No Connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -87,6 +114,8 @@ public class Control extends AppCompatActivity {
                 if (bluetoothOn) {
                     msgSending("r");
                     Toast.makeText(getApplicationContext(), " Turn right", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), " No Connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -96,6 +125,8 @@ public class Control extends AppCompatActivity {
                 if (bluetoothOn) {
                     msgSending("l");
                     Toast.makeText(getApplicationContext(), "Turn left", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), " No Connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -105,6 +136,8 @@ public class Control extends AppCompatActivity {
                 if (bluetoothOn) {
                     msgSending("e");
                     Toast.makeText(getApplicationContext(), " Stop", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), " No Connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -115,6 +148,8 @@ public class Control extends AppCompatActivity {
                 if (bluetoothOn) {
                     msgSending("p");
                     Toast.makeText(getApplicationContext(), " Automation", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(), " No Connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -189,4 +224,74 @@ public class Control extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private void msg(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    }
+
+    private class ConnectBT extends AsyncTask<Void, Void, Void> {
+        private boolean ConnectSuccess = true;
+
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(Control.this, "Connecting...", "Please Wait!!!");
+        }
+
+        @Override
+        protected Void doInBackground(Void... devices) {
+            try {
+                if (btSocket == null || !isBtConnected) {
+                    myBluetooth = BluetoothAdapter.getDefaultAdapter();
+                    BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(macAddress);
+
+                    btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(PORT_UUID);
+                    btSocket = (BluetoothSocket) dispositivo.getClass().getMethod("createRfcommSocket", new Class[]{int.class}).invoke(device, 1);
+                    BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+                    if (!btSocket.isConnected()) {
+                        btSocket.connect();
+                    }
+                }
+            } catch (IOException | NoSuchMethodException e) {
+                ConnectSuccess = false;
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                ConnectSuccess = false;
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                ConnectSuccess = false;
+                e.printStackTrace();
+            }
+            if (ConnectSuccess) {
+
+                BluetoothStatus.setBtSocket(btSocket);
+                try {
+                    inputStream = btSocket.getInputStream();
+                    outputStream = btSocket.getOutputStream();
+                    bluetoothOn = true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            if (!ConnectSuccess) {
+                msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
+                finish();
+            } else {
+                msg("Connected");
+                isBtConnected = true;
+            }
+
+            progress.dismiss();
+        }
+    }
+
+
 }

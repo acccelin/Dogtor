@@ -76,7 +76,7 @@ public class Selection extends AppCompatActivity {
     }
 
     public void openVitals(){
-        Intent intent = new Intent(this,Vitals.class);
+        Intent intent = new Intent(this,BpChartActivity.class);
         startActivity(intent);
     }
 

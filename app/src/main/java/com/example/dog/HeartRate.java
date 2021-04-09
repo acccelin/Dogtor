@@ -7,7 +7,6 @@ import android.util.Log;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-
 public class HeartRate extends AppCompatActivity {
 
     private static final String TAG = "HeartRate";
